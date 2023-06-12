@@ -48,8 +48,7 @@ insertion into Mongodb database, and saved resulting dictionaries, in a list.
 7. Finally, we inserted resulting dictionaries into a Mongodb database as documents
 of a collection.
 
-# Database Design:
-
+## Database Design:
 In order to make sure resulting dataset is ready for business use, we structured it into 2
 main collections. First collection, namely, “cargurus_listings” contains technical
 information about a given listing, along with its unique identifier VIN number. This
@@ -86,5 +85,43 @@ went for BeautifulSoup as our web-scraping tool because it provides convenient h
 parsing of the pages, and easy access to web elements using their css selectors. We
 decided to store all of the scraped information from each listing in python dictionaries to
 be able to easily insert them into MongoDb collections. In the next section, we will
-further talk about the design choices made in the creation of these datasets with respect to added business value, and discuss how these datasets could be used to solve the
-Fair Market Value price prediction in the used car market.
+further talk about the design choices made in the creation of these datasets with respect to added business value, and discuss how these datasets could be used to solve the Fair Market Value price prediction in the used car market.
+
+## Business Use of Dataset
+As we discussed earlier, the main goal in the collection and creation of this
+database is to prepare a ready to use dataset for developing a fair-market value
+prediction model. With the chaotic used car market caused by Covid followed by a
+microchip shortage, entrepreneurs in car sales businesses are looking for reliable ways
+to value cars. Fair Market Value prediction model is designed to optimize price
+valuations in business situations as such. Such models are so much in demand for car
+sales business that a lot of well-known online automotive websites such as
+Edmunds.com, vinaudit.com, carsxse.com are offering their own fair market value
+predictions through convenient to access api calls, that can be obtained through
+monthly subscriptions, and fixed rate per api calls for dealerships. In designing our
+database, we also took into consideration its business use, and structured our
+collections in a way, that they coud be ready for model development and verification
+purposes. More Specifically, the first collection(“cargurus_listings”) we designed
+contains all the technical details about a car such as Make, Model, Year, Mileage,
+Engine Size, Horsepower and etc. This collection is designed to be the main source of
+model development for the Fair Market Value prediction model. Each of the documents
+included in this collection, contains minimum of 15 and maximum of about 30 fields
+containing universal or car specific information. Each of the fields included in this
+collection are chosen in a way that they could be used as features in the predictive
+model, or for visualization in exploratory data analysis to generate insights. The second
+collection (“cargurus_listings_avg_price”) contains fields storing information about car’s
+average market price and deal rating provided by cargurus, url to the listing, along with
+VIN number which is a unique identifier for each of the documents in both collections.
+This dataset is intended for comparing predictions made from a fair market value
+prediction model based on the first dataset, with the average price estimate provided by
+cargurus. Since similar fair market value predictions are also available from other
+sources accessible using car’s VIN number, this collection is designed in a way that it
+can be scalep up if the user decides to make use of one of such api’s to get an external
+confirmation on car’s fair market value price to be compared with the results produced
+by the in house model. In that case, user can just add ann additional field to each of the
+documents containing external fair market value estimate. We did not make use of such
+external fair market value estimate api’s in our data collection process mainly because
+they are costly to use. However, the design choices of this collection have taken into
+account the possibility of scaling through the use of external sources. The design
+structure of our database ensures that a Fair Market Value prediction model coulde be
+developed based on the first collection, and testified against external resources using
+the second collection.
