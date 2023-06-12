@@ -48,7 +48,7 @@ insertion into Mongodb database, and saved resulting dictionaries, in a list.
 7. Finally, we inserted resulting dictionaries into a Mongodb database as documents
 of a collection.
 
-## Database Design:
+## Database Design
 In order to make sure resulting dataset is ready for business use, we structured it into 2
 main collections. First collection, namely, “cargurus_listings” contains technical
 information about a given listing, along with its unique identifier VIN number. This
